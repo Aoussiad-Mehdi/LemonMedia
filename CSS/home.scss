@@ -1,0 +1,369 @@
+// Import the text font and variables.
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import 'variables';
+
+//Mixins.
+@mixin flex($direction, $justify, $align) {
+ display: flex;
+ flex-direction: $direction;
+ justify-content: $justify;
+ align-items: $align;
+}
+@mixin gradientBackground {
+  background: #FF8008; //fallback for old browsers.
+  background: -webkit-linear-gradient(to right, #FFC837, #FF8008); //Chrome 10-25,Safari 5.1-6
+  background: linear-gradient(to right, #FFC837, #FF8008);
+  //W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+}
+
+//Global style.
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  width: 100%;
+  header {
+   @include flex(row, space-between, center);
+   width: 100%;
+   height: 5rem;
+   @include gradientBackground();
+
+   .logo{
+    padding-left: 2.5rem;
+    @include flex(row, center, center);
+    .logo-name{
+     font-size: 1.5rem;
+     color: $textColor;
+     margin-left: .2rem;
+    }
+    //media query for very small screens.
+    @media (max-width: 320px){
+    .logo-name{
+      font-size: 1.1em;
+    }
+  }
+   }
+   .logo img{
+    width: 2rem;
+    height: 2rem;
+   }
+  .hamburgerBtn{
+    padding: .5rem 1.1rem;
+    display: none;
+    cursor: pointer;
+    border-radius: .3rem;
+    border: 0;
+    i{
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+  nav{
+   padding-right: 2rem;
+   .nav-link{
+    margin: 0 1rem;
+    color: $textColor;
+    text-decoration: none;
+    &:hover{
+     text-decoration: underline;
+    }
+   }
+   .contact-nav-link{
+    background: $btnColor;
+    color: $primaryColor;
+    padding: .65rem 1.3rem;
+    font-size: 1rem;
+    border-radius: 2rem;
+    &:hover{
+     text-decoration: none;
+    }
+   }
+  }
+  //Navbar media queries(tablet & mobile screens).
+  @media (max-width: 920px) {
+    header{
+     @include flex(row, space-between, center);
+     position: relative;
+     .hamburgerBtn{
+      display: block;
+      margin-right: 1.5rem;
+     }
+    }
+
+    nav{
+      @include flex(column, center, center);
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+      @include gradientBackground();
+      padding-bottom: 6rem;
+      position: absolute;
+      top: 5rem;
+      display: none;
+      animation: animate .3s;
+      .nav-link{
+        font-size: 1.5rem;
+        margin: 1.1rem 0;
+      }
+      .contact-nav-link{
+        padding: .65rem 1.6rem;
+      }
+    }
+    //navbar animation.
+    @keyframes animate {
+      from{
+        transform: scale(.8);
+      }
+      to{
+        transform: scale(1);
+      }
+    }
+  }
+
+ main{
+  width: 100%;
+  height: 95vh;
+  padding-left: 2.5rem;
+  padding-right: 2rem;
+  @include gradientBackground();
+  @include flex(row, space-around, center);
+  .hero-image img{
+   margin-bottom: 2.5rem;
+   max-width: 100%;
+  }
+  .hero-text{
+   padding-bottom: 2rem;
+  }
+  .hero-text > h1{
+   font-weight: 900;
+   font-size: 2.9rem;
+  }
+  .hero-text p{
+   padding-top: 1.7rem;
+   padding-right: 2.5rem;
+   font-size: 1.1rem;
+   color: $paragraphColor;
+  }
+
+  .buttons{
+   padding-top: 6rem;
+   .getTouch{
+    padding: 1rem 3rem;
+    background: $btnColor;
+    border-radius: 2rem;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #FFC837;
+    border: 2px solid $btnColor;
+    cursor: pointer;
+    transition: .3s ease;
+     &:hover{
+     background: transparent;
+     color: $btnColor;
+     transform: scale(1.05);
+    }
+   }
+   .learnMore{
+    padding: 1rem 3rem;
+    background: transparent;
+    border-radius: 2rem;
+    font-size: 1.15rem;
+    font-weight: bold;
+    border: 2px solid $btnColor;
+    color: $btnColor;
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: .3s ease;
+    &:hover{
+     background: $btnColor;
+     color: $primaryColor;
+    }
+   }
+   //buttons on mobile screens.
+   @media (max-width: 780px){
+     .getTouch, .learnMore{
+      padding: .6rem 1rem;
+      font-size: .9rem;
+      margin-left: 0;
+    }
+   }
+   @media (max-width: 320px){
+    .getTouch, .learnMore{
+      padding: .8rem .9rem;
+      font-size: .7rem;
+      margin-bottom: 1rem;
+   }
+  }
+}
+
+  //media queries for the hero section(mobile & tablet screens).
+  @media (max-width: 1120px){
+    .hero-text > h1{
+     font-size: 2.4rem;
+    }
+    .hero-image img{
+      object-fit: cover;
+      height: 25rem;
+      width: 80rem;
+    }
+  }
+  @media (max-width: 960px){
+    main{
+      margin-bottom: 4.5rem;
+    }
+    .hero-image img{
+     max-width: 100%;
+     width: auto;
+     height: auto;
+     padding-bottom: 5rem;
+    }
+    .hero-text > h1{
+      font-size: 2rem;
+    }
+  }
+  @media (max-width: 780px){
+    .hero-image img{
+     display: none;
+    }
+    .hero-text{
+      @include flex(column, center, center);
+      padding-bottom: 8rem;
+    }
+    .hero-text h1{
+      font-size: 1.7rem;
+    }
+  }
+  @media (max-width: 480px){
+    .hero-text{
+      padding-bottom: 3rem;
+    }
+  }
+  @media (max-width: 370px){
+    .hero-text h1{
+      font-size: 1.3rem;
+      padding-top: 2rem;
+    }
+    .hero-text p{
+      font-size: 1rem;
+      padding-right: 0;
+    }
+  }
+
+  //media queries for the hero section(large screens).
+  @media (min-width: 1700px){
+    .hero-text{
+     padding-right: 15rem;
+    }
+    .hero-text > h1{
+     font-size: 3.5rem;
+    }
+    .hero-text p{
+     padding-right: 5rem;
+    }
+  }
+ }
+
+//Services section.
+ .service-lemon-media{
+  width: 100%;
+  padding: .5rem 2.5rem;
+  height: auto;
+ }
+ .service-lemon-media h2{
+  text-align: center;
+  padding: 2rem 0;
+  font-weight: 800;
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 8px;
+    text-underline-offset: 10px;
+    text-decoration-color: #ebae15;
+    -moz-text-decoration-color: #ebae15;
+    -webkit-text-decoration-color: #ebae15;
+ }
+.services-container{
+  margin-top: 3rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  justify-content: center;
+  align-items: center;
+ }
+ .services-container article{
+  // @include gradientBackground();
+  margin: 1.2rem .5rem;
+  height: 16rem;
+  @include flex(column, center, flex-start);
+  padding: 0 .4rem;
+  i{
+    font-size: 3rem;
+    margin-bottom: 1.3rem;
+    @include gradientBackground();
+    padding: 1.5rem 1.6rem;
+    border-radius: 50%;
+  }
+  h3{
+    padding-bottom: 1rem;
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+  p{
+    color: $paragraphColor;
+  }
+ }
+
+// Testimonials section.
+ .testimonials{
+   width: 100%;
+   padding: 5rem 0;
+  h2{
+    text-align: center;
+    font-weight: 800;
+    font-size: 2.3rem;
+    padding: 3rem 0;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 10px;
+    text-underline-offset: 8px;
+    text-decoration-color: #ebae15;
+    -moz-text-decoration-color: #ebae15;
+    -webkit-text-decoration-color: #ebae15;
+    }
+   .reviews{
+    @include flex(row, center, center);
+    flex-wrap: wrap;
+   }
+   article{
+     width: 15rem;
+     height: 20rem;
+     @include flex(column, center, center);
+     margin: 2rem 3rem;
+     h3{
+       margin-top: .6rem;
+     }
+     i{
+      color: #ebae15;
+     }
+     p{
+       text-align: center;
+       padding: .5rem 0;
+     }
+   }
+   article img{
+     max-width: 100%;
+     width: 12rem;
+     height: 11.5rem;
+     object-fit: cover;
+     border-radius: 50%;
+   }
+ }
+
+}
